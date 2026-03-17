@@ -742,23 +742,29 @@
             }
 
             try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                
-                // Save user data to Firestore
-                await db.collection('users').doc(userCredential.user.uid).set({
-                    name,
-                    email,
-                    role,
-                    businessName: role === 'vendor' ? businessName : null,
-                    location,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    
+    // Save user data to Firestore
+    await db.collection('users').doc(userCredential.user.uid).set({
+        name,
+        email,
+        role,
+        businessName: role === 'vendor' ? businessName : null,
+        location,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-                closeModal('signupModal');
-                alert('Registration successful!');
-            } catch (error) {
-                alert('Registration failed: ' + error.message);
-            }
+    // Sign out immediately after registration
+    await auth.signOut();
+
+    closeModal('signupModal');
+    alert('Registration successful! Please login.');
+    
+    // Open login modal automatically
+    openLoginModal();
+} catch (error) {
+    alert('Registration failed: ' + error.message);
+}
         }
 
         async function logout() {
