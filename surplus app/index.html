@@ -756,6 +756,14 @@
 
     // Sign out immediately after registration
     await auth.signOut();
+    // Clear the registration form
+        document.getElementById('regName').value = '';
+        document.getElementById('regEmail').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regRole').value = 'consumer';
+        document.getElementById('regBusinessName').value = '';
+        document.getElementById('regLocation').value = 'Kigali Downtown';
+        document.getElementById('businessNameGroup').classList.add('hidden');
 
     closeModal('signupModal');
     alert('Registration successful! Please login.');
