@@ -1,0 +1,51 @@
+@startuml
+|Consumer|
+start
+:Open App;
+:Browse Food Items;
+:Select Food Item;
+:Enter Quantity;
+
+|System|
+:Calculate Total Price;
+:Display Price to Consumer;
+
+|Consumer|
+:Confirm Order;
+
+|System|
+:Process Payment;
+
+if (Payment Successful?) then (yes)
+  :Create Order;
+  :Save to Database;
+  
+  |Vendor|
+  :Receive Order Notification;
+  :Prepare Food;
+  :Mark Order as Ready;
+  
+  |System|
+  :Send Pickup Notification;
+  
+  |Consumer|
+  :Go to Pickup Location;
+  :Collect Food;
+  
+  |Vendor|
+  :Hand Over Food;
+  
+  |Consumer|
+  :Rate & Review;
+  stop
+  
+else (no)
+  |System|
+  :Show Payment Error;
+  
+  |Consumer|
+  :Retry or Cancel;
+  stop
+endif
+
+@enduml

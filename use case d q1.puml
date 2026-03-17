@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Doctor
+actor Auditor
+
+rectangle "Medical Records System" {
+  usecase "Record Consultation" as UC1
+  usecase "Diagnose Illness" as UC2
+  usecase "Prescribe Drug" as UC3
+  usecase "View Patient Records" as UC4
+  usecase "Audit Drug Prescriptions" as UC5
+  usecase "Generate Audit Report" as UC6
+}
+
+Doctor --> UC1
+Doctor --> UC2
+Doctor --> UC3
+Doctor --> UC4
+
+Auditor --> UC5
+Auditor --> UC6
+
+UC5 .> UC3 : <<include>>
+UC6 .> UC5 : <<include>>
+@enduml

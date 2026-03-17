@@ -1,0 +1,62 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Patient {
+  - patientId : String
+  - name : String
+  - dateOfBirth : Date
+  - contact : String
+  --
+  + getRecords() : List
+  + getMedicalHistory() : List
+}
+
+class Consultation {
+  - consultationId : String
+  - date : Date
+  - notes : String
+  --
+  + addDiagnosis() : void
+  + addPrescription() : void
+}
+
+class Doctor {
+  - doctorId : String
+  - name : String
+  - specialty : String
+  --
+  + diagnose() : Diagnosis
+  + prescribe() : Prescription
+}
+
+class Diagnosis {
+  - diagnosisId : String
+  - illness : String
+  - severity : String
+  --
+  + getDetails() : String
+}
+
+class Prescription {
+  - prescriptionId : String
+  - drugName : String
+  - dosage : String
+  - dateIssued : Date
+  --
+  + checkRepeatPrescription() : boolean
+}
+
+class Auditor {
+  - auditorId : String
+  - name : String
+  --
+  + auditDrugPrescriptions() : Report
+  + generateReport() : void
+}
+
+Patient "1" -- "0..*" Consultation : has >
+Doctor "1" -- "0..*" Consultation : conducts >
+Consultation "1" -- "0..*" Diagnosis : includes >
+Consultation "1" -- "0..*" Prescription : generates >
+Auditor "1" -- "0..*" Prescription : audits >
+@enduml

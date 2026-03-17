@@ -1,0 +1,21 @@
+@startuml
+start
+
+:Customer places order;
+:Waiter enters order into system;
+
+if (Is order valid?) then (yes)
+  :System records and confirms order;
+  :Order sent to kitchen queue;
+  :Kitchen prepares the meal;
+  :Waiter serves the meal to customer;
+  :Customer requests the bill;
+  :Cashier processes payment;
+  :System prints receipt;
+  stop
+else (no)
+  :System alerts waiter of invalid entry;
+  :Waiter corrects the order;
+  -> loop back;
+endif
+@enduml
